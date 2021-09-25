@@ -51,15 +51,16 @@ public class RootSpecification {
         for(int i=0;i<=n;++i)
             a[i] = in.nextDouble();
 
+        AlgEquation algEquation = new AlgEquation(n, a);
         RootSpecification rootSpecification =
-                new RootSpecification(new AlgEquation(n, a));
+                new RootSpecification(algEquation);
 
         double a1, b;
         do {
-            System.out.print("Input a, b (b>a): ");
+            System.out.print("Input a, b (b>a && f(a)*f(b)<0): ");
             a1 = in.nextDouble();
             b = in.nextDouble();
-        } while (b<=a1);
+        } while (b<=a1 || algEquation.getValue(a1)*algEquation.getValue(b)>=0);
 
         System.out.print("epsilon = ");
         double eps = in.nextDouble();
@@ -77,10 +78,10 @@ public class RootSpecification {
                 new RootSpecification(new TransEquation());
 
         do {
-            System.out.print("Input a, b (b>a): ");
+            System.out.print("Input a, b (b>a && f(a)*f(b)<0): ");
             a1 = in.nextDouble();
             b = in.nextDouble();
-        } while (b<=a1);
+        } while (b<=a1 || algEquation.getValue(a1)*algEquation.getValue(b)>=0);
 
         System.out.print("epsilon = ");
         eps = in.nextDouble();
