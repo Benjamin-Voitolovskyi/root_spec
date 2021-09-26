@@ -15,4 +15,22 @@ public class AlgEquation implements Function{
         }
         return result;
     }
+
+    @Override
+    public double firstDerivative(double x) {
+        double result = 0;
+        for(int i=1; i<=n; ++i) {
+            result += a[i]*i*Math.pow(x, i-1);
+        }
+        return result;
+    }
+
+    @Override
+    public double secondDerivative(double x) {
+        double result = 0;
+        for(int i=2; i<=n; ++i){
+            result += a[i]*i*(i-1)*Math.pow(x, i-2);
+        }
+        return result;
+    }
 }
