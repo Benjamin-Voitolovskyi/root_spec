@@ -30,6 +30,22 @@ public class RootSpecification {
         return (an + bn) / 2.0;
     }
 
+    public double Newton(double a, double b, double eps){
+        k=0;
+
+        double x, xprev;
+        if(f.getValue(a)*f.secondDerivative(a)>0)
+            x=a;
+        else x=b;
+
+        do{
+            xprev = x;
+            x = xprev - f.getValue(xprev)/f.firstDerivative(xprev);
+            ++k;
+        } while(Math.abs(x-xprev)>=eps);
+
+        return x;
+    }
     //write your methods here
 
     public int getK() {
@@ -69,19 +85,24 @@ public class RootSpecification {
         System.out.println("1\tDivide by two\t"+
                 rootSpecification.divideByTwo(a1,b,eps)+"         "+
                 rootSpecification.getK());
+        System.out.println("3\tNewton's method\t"+
+                rootSpecification.Newton(a1,b,eps)+"         "+
+                rootSpecification.getK());
         //write other methods here
         System.out.println();
 
         System.out.println("Transcendent equation");
 
+        TransEquation transEquation = new TransEquation();
+
         RootSpecification rootSpecification1 =
-                new RootSpecification(new TransEquation());
+                new RootSpecification(transEquation);
 
         do {
             System.out.print("Input a, b (b>a && f(a)*f(b)<0): ");
             a1 = in.nextDouble();
             b = in.nextDouble();
-        } while (b<=a1 || algEquation.getValue(a1)*algEquation.getValue(b)>=0);
+        } while (b<=a1 || transEquation.getValue(a1)*transEquation.getValue(b)>=0);
 
         System.out.print("epsilon = ");
         eps = in.nextDouble();
@@ -89,6 +110,9 @@ public class RootSpecification {
         System.out.println("№\tMethod              x       number of iterations");
         System.out.println("1\tDivide by two\t"+
                 rootSpecification1.divideByTwo(a1,b,eps)+"         "+
+                rootSpecification1.getK());
+        System.out.println("3\tNewton's method\t"+
+                rootSpecification1.Newton(a1,b,eps)+"         "+
                 rootSpecification1.getK());
         //write other methods here
     }
